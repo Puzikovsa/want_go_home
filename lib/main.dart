@@ -14,9 +14,20 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    Phone().readData;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +43,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,19 +54,36 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: InkWell(
           splashColor: Colors.red,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(18),
           onTap: () {
             showModalBottomSheet(
                 context: context, builder: (context) => const AddPhone());
           },
           child: Container(
+            alignment: Alignment.center,
+            height: 60,
+            width:  200,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(18),
+              color: Colors.redAccent,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black38,
+                  offset: Offset(10, 10),
+                  blurRadius: 10,
+                )
+              ]
             ),
             child: Consumer(
               builder: ((context, ref, child) {
                 final phoneNumber = ref.watch(nameProvider);
-                return Text(phoneNumber?? 'Номер не задан');
+                return Text(phoneNumber?? 'Номер не задан',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white
+                ),);
               }),
             ),
           ),

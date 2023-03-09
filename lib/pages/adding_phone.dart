@@ -34,6 +34,7 @@ class _AddPhoneState extends ConsumerState<AddPhone> {
               ref
                   .read(nameProvider.notifier)
                   .update((state) => _controller.text);
+              Phone().writeData(_controller.text);
               Navigator.pop(context);
             },
             child: const Text('Сохранить'),
